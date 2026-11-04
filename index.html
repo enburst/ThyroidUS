@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thyroid Ultrasound Report Generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header no-print">
+    <div class="app-title">
+      <h1>Thyroid Ultrasound Report</h1>
+      <span class="subtitle">ACR TI-RADS report assistant &mdash; all data stays in your browser</span>
+    </div>
+    <div class="header-actions">
+      <button id="btn-settings" class="btn" type="button">Settings</button>
+      <button id="btn-reset" class="btn btn-danger" type="button">Reset all</button>
+      <button id="btn-copy" class="btn btn-primary" type="button">Copy report</button>
+      <button id="btn-print" class="btn" type="button">Print</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <div class="left-pane no-print">
+
+      <section class="card">
+        <div class="card-head"><h2>Study information</h2></div>
+        <div class="field-grid">
+          <label>Date <input type="date" data-field="date"></label>
+          <label>Physician diagnostician <input type="text" data-field="physician" placeholder="e.g. J. Smith, MD"></label>
+          <label>Ultrasound operator <input type="text" data-field="operator" placeholder="e.g. A. Doe, RDMS"></label>
+          <label class="patient-field">Patient name <input type="text" data-field="patient" placeholder="optional"></label>
+          <label class="patient-field">MRN <input type="text" data-field="mrn" placeholder="optional"></label>
+          <label class="patient-field">DOB <input type="date" data-field="dob"></label>
+          <label id="prior-field">Prior ultrasound date <input type="date" data-field="priorUsDate" placeholder="optional"></label>
+          <label class="wide">Indication
+            <div class="btn-group" id="indication-presets"></div>
+            <textarea rows="2" data-field="indication" placeholder="or type a custom indication"></textarea>
+          </label>
+        </div>
+        <div class="card-foot">
+          <button id="btn-new-patient" class="btn" type="button">+ New patient <span class="hint">(clears patient details, findings &amp; nodules)</span></button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2>Thyroid gland</h2></div>
+        <div id="gland-sizes" class="gland-sizes"></div>
+        <div class="opt-group"><span class="opt-label">Gland characteristics</span><div class="check-group" id="gland-chars"></div></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Nodules</h2>
+          <button id="btn-add-nodule" class="btn" type="button">+ Add nodule</button>
+        </div>
+        <div id="nodule-list"></div>
+        <button id="btn-add-nodule-2" class="btn add-bottom" type="button">+ Add nodule</button>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Lymph nodes</h2>
+          <button id="btn-add-ln" class="btn" type="button">+ Add lymph node</button>
+        </div>
+        <div id="ln-list"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2>Impression free text</h2></div>
+        <textarea id="free-text" rows="2" placeholder="Optional text added to the impression&hellip;"></textarea>
+      </section>
+
+    </div>
+
+    <section class="card right-pane">
+      <div class="card-head">
+        <h2>Report</h2>
+        <span class="report-meta" id="report-meta"></span>
+      </div>
+      <div id="report-text" class="report-text"></div>
+    </section>
+  </main>
+
+  <div id="settings-drawer" class="no-print hidden">
+    <div class="drawer-head">
+      <h2>Report settings</h2>
+      <button id="btn-save-settings" class="btn btn-primary" type="button">Save</button>
+    </div>
+    <div id="settings-form" class="settings-form"></div>
+  </div>
+
+  <script src="tirads.js"></script>
+  <script src="report.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
